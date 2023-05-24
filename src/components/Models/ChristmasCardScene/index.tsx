@@ -8,29 +8,30 @@ import { useGLTF } from '@react-three/drei'
 import { GLTFResult } from 'global'
 
 export function ChristmasCardScene(props: React.ComponentProps<'group'>) {
-  const { nodes, materials } = useGLTF('/models/scene.glb') as GLTFResult
+  const { nodes, materials, scene } = useGLTF('/models/scene.glb') as GLTFResult
+
   return (
     <group {...props} dispose={null}>
-      <mesh geometry={nodes.WinterTreeApplesShort_v2.geometry} material={materials.MainMaterial} position={[-15.76, 0.21, -4.07]} />
-      <mesh geometry={nodes.WinterGrass01.geometry} material={materials['MainMaterial.001']} position={[-4.02, 0.33, -2.34]} />
-      <mesh geometry={nodes.WinterGrass03.geometry} material={materials['MainMaterial.002']} position={[-8.84, -0.32, -0.28]} />
-      <mesh geometry={nodes.WinterChestTop_v2.geometry} material={materials['MainMaterial.003']} position={[4.35, 0.12, -1.76]} />
-      <mesh geometry={nodes.WinterChestBottom_v2.geometry} material={materials['MainMaterial.004']} position={[4.35, -0.15, -1.31]} />
-      <mesh geometry={nodes.WinterGrass01001.geometry} material={materials['MainMaterial.001']} position={[3.26, 0.36, -2.03]} />
-      <mesh geometry={nodes.WinterGrass03001.geometry} material={materials['MainMaterial.002']} position={[2.84, 0.15, -1.72]} />
-      <mesh geometry={nodes.WinterBarrel.geometry} material={materials['MainMaterial.005']} position={[2.86, -0.36, -0.64]} scale={0.58} />
-      <mesh geometry={nodes.WinterTreeApplesShortG_v2.geometry} material={materials['MainMaterial.006']} position={[-6.11, 0.15, -2.31]} />
-      <mesh geometry={nodes.WinterTreeAppleTallG_v2.geometry} material={materials['MainMaterial.007']} position={[-7.5, -0.54, -0.88]} />
-      <mesh geometry={nodes.WinterTreePineTall.geometry} material={materials['MainMaterial.008']} position={[-8.9, 0.13, -2.39]} />
+      <mesh castShadow receiveShadow geometry={nodes.WinterTreeApplesShort_v2.geometry} material={materials.MainMaterial} position={[-15.76, 0.21, -4.07]} />
+      <mesh castShadow receiveShadow geometry={nodes.WinterGrass01.geometry} material={materials['MainMaterial.001']} position={[-4.02, 0.33, -2.34]} />
+      <mesh castShadow receiveShadow geometry={nodes.WinterGrass03.geometry} material={materials['MainMaterial.002']} position={[-8.84, -0.32, -0.28]} />
+      <mesh castShadow receiveShadow geometry={nodes.WinterChestTop_v2.geometry} material={materials['MainMaterial.003']} position={[4.35, 0.12, -1.76]} />
+      <mesh castShadow receiveShadow geometry={nodes.WinterChestBottom_v2.geometry} material={materials['MainMaterial.004']} position={[4.35, -0.15, -1.31]} />
+      <mesh castShadow receiveShadow geometry={nodes.WinterGrass01001.geometry} material={materials['MainMaterial.001']} position={[3.26, 0.36, -2.03]} />
+      <mesh castShadow receiveShadow geometry={nodes.WinterGrass03001.geometry} material={materials['MainMaterial.002']} position={[2.84, 0.15, -1.72]} />
+      <mesh castShadow receiveShadow geometry={nodes.WinterBarrel.geometry} material={materials['MainMaterial.005']} position={[2.86, -0.36, -0.64]} scale={0.58} />
+      <mesh castShadow receiveShadow geometry={nodes.WinterTreeApplesShortG_v2.geometry} material={materials['MainMaterial.006']} position={[-6.11, 0.15, -2.31]} />
+      <mesh castShadow receiveShadow geometry={nodes.WinterTreeAppleTallG_v2.geometry} material={materials['MainMaterial.007']} position={[-7.5, -0.54, -0.88]} />
+      <mesh castShadow receiveShadow geometry={nodes.WinterTreePineTall.geometry} material={materials['MainMaterial.008']} position={[-8.9, 0.13, -2.39]} />
       <group position={[-0.31, 0.85, 0]} rotation={[0, -Math.PI / 2, 0]} scale={0.48}>
-        <mesh geometry={nodes.Cube007.geometry} material={materials.Material} />
-        <mesh geometry={nodes.Cube007_1.geometry} material={materials['Material.002']} />
+        <mesh castShadow receiveShadow geometry={nodes.Cube007.geometry} material={materials.Material} />
+        <mesh castShadow receiveShadow geometry={nodes.Cube007_1.geometry} material={materials['Material.002']} />
       </group>
-      <mesh geometry={nodes.roof001.geometry} material={materials.Material} position={[-0.31, 0.86, 0]} rotation={[0, -Math.PI / 2, 0]} scale={0.48} />
-      <mesh geometry={nodes.Plane003.geometry} material={nodes.Plane003.material} position={[-0.31, -0.14, -0.01]} rotation={[0, -Math.PI / 2, 0]} scale={[1.79, 1.64, 2.42]} />
-      <mesh geometry={nodes.Landscape001.geometry} material={materials.Snow} position={[1.11, -0.67, -48.63]} rotation={[Math.PI, 0, Math.PI]} />
-      {/* <mesh geometry={nodes.Plane.geometry} material={materials['Material.001']} position={[1.11, -0.55, 62.13]} rotation={[Math.PI, 0, Math.PI]} scale={100} /> */}
-      <mesh geometry={nodes.Landscape.geometry} material={materials.Snow} position={[1.11, -0.67, -48.63]} rotation={[Math.PI, 0, Math.PI]} />
+      <mesh castShadow receiveShadow geometry={nodes.roof001.geometry} material={materials.Material} position={[-0.31, 0.86, 0]} rotation={[0, -Math.PI / 2, 0]} scale={0.48} />
+      <mesh castShadow receiveShadow geometry={nodes.Plane003.geometry} material={nodes.Plane003.material} position={[-0.31, -0.14, -0.01]} rotation={[0, -Math.PI / 2, 0]} scale={[1.79, 1.64, 2.42]} />
+      <mesh castShadow receiveShadow visible={false} geometry={nodes.Plane.geometry} material={materials['Material.001']} position={[1.11, -0.55, 62.13]} rotation={[Math.PI, 0, Math.PI]} scale={100} />
+      <mesh receiveShadow geometry={nodes.Landscape001.geometry} material={materials.Snow} position={[1.11, -0.67, -48.63]} rotation={[Math.PI, 0, Math.PI]} />
+      <mesh receiveShadow geometry={nodes.Landscape.geometry} material={materials.Snow} position={[1.11, -0.67, -48.63]} rotation={[Math.PI, 0, Math.PI]} />
     </group>
   )
 }
