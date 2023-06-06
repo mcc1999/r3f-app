@@ -2,7 +2,7 @@ import { Canvas } from '@react-three/fiber'
 import { OrbitControls } from '@react-three/drei'
 import Parrot from '@/components/Models/Parrot'
 import { Bird } from '@/components/Models/Bird'
-import styles from './index.module.css'
+import styles from './index.module.scss'
 
 export default function Home() {
   return (

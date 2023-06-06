@@ -28,5 +28,8 @@
     "sass": "^1.62.1",
     "three": "^0.152.2",
     "typescript": "5.0.4"
+  },
+  "devDependencies": {
+    "r3f-perf": "6.6"
   }
 }
