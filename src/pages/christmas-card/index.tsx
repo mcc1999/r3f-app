@@ -1,6 +1,6 @@
 import React, { Suspense, useMemo, useRef } from 'react'
 import { Canvas, useThree, extend, Object3DNode, useFrame } from '@react-three/fiber'
-import { OrbitControls, Sphere } from '@react-three/drei'
+import { OrbitControls, Sphere, Environment } from '@react-three/drei'
 import { ChristmasCardScene } from '@/components/Models/ChristmasCardScene'
 import * as THREE from 'three'
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader';
@@ -122,7 +122,11 @@ const ChristmasCard:React.FC = () => {
         <Perf position='top-left'/>
         
         {/* Scene Env */}
-        <SceneEnv />       
+        {/* <SceneEnv />   */}
+        <Environment 
+          files="./textures/sky.hdr" 
+          background
+        /> 
 
         {/* Lights */}
         <directionalLight args={[0xffffff, 0.25]} position={[0, 50, 0]} />

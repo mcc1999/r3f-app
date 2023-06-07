@@ -1,34 +1,38 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# R3F Knowledge
 
-## Getting Started
+## Environment And Staging
+### BackgroundColor
+- With Css：r3f Canvas背景是透明的，可以给Container加背景色
+- WebGLRenderer.setClearColor( ) / scene.background
+  ```tsx
+  <Canvas
+    onCreated={({ gl, scene }) => {
+      gl.setClearColor('#ff0000', 1)
+      // scene.background = new THREE.Color(0xff0000)
+    }}
+    //...
+  >
+  {/** ... */}
+  </Canvas>
+  ```
+- Create `<color>` in `<Canvas>`，then set the `attach` property to `background`
+  ```tsx
+  <Canvas>
+    <color args={[ '#ff0000' ]} attach="background" />
+    {/** ... */}
+  </Canvas>
+  ```
 
-First, run the development server:
+### Shadows
+- **Basic Shadows**
+- **Baking Shadows**(by shadowMap): Use `<BakeShadows />` from `drei`
+- **Soften Shadow**: Use `<SoftShadows />` from `drei`
+- **Accumulative Shadows**: 
+  - This will receive multiple shadow renderers, 
+  - Only can be rendered on a `Plane`
+  - 和`receiveShadow`生成的普通shadow不是一个，需要从`<mesh/>`上删除receiveShadow属性
+  - Use `<AccumulativeShadows />` from `drei`
+- **Contact Shadows**
+  - 不依赖threeJs系统的shadow，移除`Canvas`的`shadows`属性
+  - Only can be rendered on a `Plane`
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
