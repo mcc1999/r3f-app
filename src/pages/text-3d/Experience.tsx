@@ -1,8 +1,12 @@
 import { Center, Text3D, OrbitControls, useMatcapTexture } from "@react-three/drei"
 import { useFrame } from "@react-three/fiber"
+import { EffectComposer } from "@react-three/postprocessing"
 import { Perf } from "r3f-perf"
 import { useEffect, useRef } from "react"
+import Drunk from "@/effects/Drunk"
 import * as THREE from 'three'
+import { useControls } from "leva"
+import { BlendFunction } from "postprocessing"
 
 const donutGeometry = new THREE.TorusGeometry(10, 3, 16, 32)
 const matcapMaterial = new THREE.MeshMatcapMaterial()
@@ -25,11 +29,32 @@ const Experience = () => {
     }
   })
 
+  const { frequency, amplitude } = useControls({
+    frequency: {
+      value: 2,
+      min: 0,
+      max: 10
+    },
+    amplitude: {
+      value: 0.1,
+      min: 0,
+      max: 1
+    }
+  })
+
   return (
     <>
       <Perf position="top-left" />
 
       <OrbitControls />
+
+      <EffectComposer>
+        <Drunk 
+          frequency={frequency}
+          amplitude={amplitude}
+          // blendFunction={BlendFunction.SCREEN}
+        />
+      </EffectComposer>
 
       <Center>
         <Text3D 
@@ -46,27 +71,28 @@ const Experience = () => {
         >
           Hello R3f
         </Text3D>
+
+        {[...Array(200)].map((value, index) => (
+          <mesh 
+            ref={(mesh) => donuts.current![index] = mesh}
+            key={index}
+            geometry={donutGeometry}
+            material={matcapMaterial}
+            scale={0.02 + Math.random() * 0.01}
+            position={[
+              (Math.random() - 0.5) * 10,
+              (Math.random() - 0.5) * 10,
+              (Math.random() - 0.5) * 10,
+            ]}
+            rotation={[
+              Math.random() * Math.PI,
+              Math.random() * Math.PI,
+              0
+            ]}
+          />
+        ))}
       </Center>
 
-      {[...Array(200)].map((value, index) => (
-        <mesh 
-          ref={(mesh) => donuts.current![index] = mesh}
-          key={index}
-          geometry={donutGeometry}
-          material={matcapMaterial}
-          scale={0.02 + Math.random() * 0.01}
-          position={[
-            (Math.random() - 0.5) * 10,
-            (Math.random() - 0.5) * 10,
-            (Math.random() - 0.5) * 10,
-          ]}
-          rotation={[
-            Math.random() * Math.PI,
-            Math.random() * Math.PI,
-            0
-          ]}
-        />
-      ))}
     </>
   )
 }

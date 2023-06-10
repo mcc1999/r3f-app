@@ -175,4 +175,32 @@ useGLTF.preload('/path-to-model')
   ```
 
 ## Post Processing
-  
+### Included Effects
+- `Vignette`
+  - `offset`、`darkness`、`blendingFunction`属性
+- `Glitch`
+  - `mode`、`delay`、`duration`、`strength`属性
+- `Noise`
+  - `premultiply`、`blendingFunction`属性
+- `Bloom`: 
+  - **Disable 材质 `Material.toneMapped`**, 它会使得颜色映射到0-1的值，但`Bloom`效果需要颜色的值超过1才明显
+  - Ways to make material `Glow`: make color over 1
+    - color属性用超过1的数组代替，被光照射的面会更亮一些
+    ```tsx
+    <meshStandardMaterial color={[4, 2, 1]} toneMapped={false} />
+    ```
+    - emissive && emissiveIntensity 设置的是glow的颜色，物体的颜色还是color控制
+    ```tsx
+    <meshStandardMaterial color="#ffffff" emissive="orange" emissiveIntensity={5} toneMapped={false} />
+    ```
+    - `meshBasicMaterial`只能用方法1，emissive属性不能用；因为光照在这个材质上无效，所以所有面一样亮
+    
+
+  - `mipmapBlur`、`intensity`、`luminanceThreshold`属性
+- `DepthOfField`
+  - `focusDistance`、`focalLength`、`brokeScale`属性 
+- `ScreenSpaceReflection`
+  - `focusDistance`、`focalLength`、`brokeScale`属性 
+
+### Custom Effects
+see codes in  `src/effects`
