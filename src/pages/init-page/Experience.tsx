@@ -7,16 +7,26 @@ import { BlendFunction } from "postprocessing"
 
 const Experience = () => {
 
-  const { frequency, amplitude } = useControls({
+  const dunkProps = useControls({
     frequency: {
       value: 2,
       min: 0,
-      max: 10
+      max: 20
     },
     amplitude: {
       value: 0.1,
       min: 0,
       max: 1
+    },
+    offset: {
+      value: 0.1,
+      min: 0,
+      max: 10
+    },
+    speed: {
+      value: 0,
+      min: 0,
+      max: 0.1
     }
   })
 
@@ -28,8 +38,7 @@ const Experience = () => {
 
       <EffectComposer>
         <Drunk 
-          frequency={frequency}
-          amplitude={amplitude}
+          {...dunkProps}
           blendFunction={BlendFunction.SCREEN}
         />
       </EffectComposer>

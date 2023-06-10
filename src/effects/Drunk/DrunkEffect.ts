@@ -20,10 +20,11 @@ export interface DunkProps {
   frequency?: number;
   amplitude?: number;
   offset?: number;
+  speed?: number;
 }
 
 export default class DrunkEffect extends Effect {
-  constructor({frequency = 0, amplitude = 0, offset = 0, blendFunction = BlendFunction.DARKEN}: DunkProps) {
+  constructor({frequency = 0, amplitude = 0, offset = 0, speed = 0, blendFunction = BlendFunction.DARKEN}: DunkProps) {
     super(
       'DrunkEffect', 
       fragmentShader, 
@@ -33,11 +34,12 @@ export default class DrunkEffect extends Effect {
           ['frequency', new Uniform(frequency)],
           ['amplitude', new Uniform(amplitude)],
           ['offset', new Uniform(offset)],
+          ['speed', new Uniform(speed)],
         ])
       }
     )
   }
   update(renderer: WebGLRenderer, inputBuffer: WebGLRenderTarget, deltaTime: number){    
-    this.uniforms.get('offset')!.value += deltaTime
+    this.uniforms.get('offset')!.value += deltaTime + this.uniforms.get('speed')!.value
   }
 }
