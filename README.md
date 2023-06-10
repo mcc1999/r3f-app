@@ -81,29 +81,28 @@ useGLTF.preload('/path-to-model')
 - 把模型抽象成单独组件
 - 在引用模型时使用`<Suspense>`嵌套模型组件
 - 设置`Suspense`的fallback属性设置loading时展示的内容
+  ```tsx
+  import Model from './path-to-model-component'
 
-```tsx
-import Model from './path-to-model-component'
+  // ... 
 
-// ... 
-
-<Suspense
-  fallback={"Loading Model"} // Or some other mesh / 统一的Placeholder组件
->
-  <Model />
-</Suspense>
-```
+  <Suspense
+    fallback={"Loading Model"} // Or some other mesh / 统一的Placeholder组件
+  >
+    <Model />
+  </Suspense>
+  ```
 
 ### Copy Model
 - Use `Clone` helper from `@react-three/drei`
 - replace `<primitive />` with `<Clone />`
-```tsx
-import { Clone } from '@react-three/drei'
+  ```tsx
+  import { Clone } from '@react-three/drei'
 
-// ...
+  // ...
 
-<Clone object={model.scene} />
-```
+  <Clone object={model.scene} />
+  ```
 
 ### GLTFJSX
 [🔗Drag the model file to the website, then you will get the jsx component](https://gltf.pmnd.rs)
@@ -111,41 +110,69 @@ import { Clone } from '@react-three/drei'
 ### Animations in Model
 - Use `useAnimations` from `@react-three/drei`
 - `useAnimations` will convert the `animation clips` to `action`, and return them
-```tsx
-import { useAnimations } from '@react-three/drei'
-import { useControl } from 'leva'
+  ```tsx
+  import { useAnimations } from '@react-three/drei'
+  import { useControl } from 'leva'
 
-const Model = () => {
-  // same for draco models
-  const model = useGLTF('/path-to-model')
+  const Model = () => {
+    // same for draco models
+    const model = useGLTF('/path-to-model')
+    
+    const { actions, mixer, clips, names ...other } = useAnimations(model.animations, model.scene)
+    
+    // 动作间流传切换
+    actions.Walk.play()
+
+    setTimeOut(() => {
+      actions.Run.play()
+      // parameters: action from && time to switch
+      actions.Run.crossFadeFrom(actions.Walk, 1) 
+    }, 5000)
+
+
+    // Leva 控制动作间切换
+    const animationName = useControl({
+      animationName: { options: names }
+    })
+    useEffect(() => {
+      const action = actions[animationName]
+      action.reset().fadeIn(0.5).play()
+
+      return () => {
+        action.fadeOut(0.5)
+      }
+    }, [animationName])
+    
+  }
+
+  // 提前加载preLoading
+  useGLTF.preload('/path-to-model')
+  ```
+
+## Mouse Events
+### 事件冒泡Propagation
+- 当多个`mesh`在一条从`camera`出发的`RayCaster`，在你的视角这些`mesh`重叠时, 点击最靠近`camera`的`mesh`，所有`mesh`绑定的`Click`事件都会触发
+- 若只希望被点击的`mesh`触发`Click`事件，可在该物体的`eventHandler`上阻止冒泡
+  ```tsx
+  <mesh onClick={event => event.stopPropagation()} />
+  ```
+
+### 鼠标光标Cursor
+- js原生方法：给`mesh`绑定`r3f`的`onPointerEnter`和`onPointerLeave`事件，改变`document` / `canvas`的`style.cursor`属性
+  ```tsx
+  <mesh
+    onPointerEnter={() => document.body.style.cursor = 'pointer' }
+    onPointerLeave={() => document.body.style.cursor = 'default' }
+  />
+  ```
+- `userCursor` in `@react-three/drei`
+  ```tsx
+  const [hovered, set] = useState()
+  useCursor(hovered, /*'pointer', 'auto'*/)
+
+  return (
+    <mesh onPointerOver={() => set(true)} onPointerOut={() => set(false) />
+  ```
+
+## Post Processing
   
-  const { actions, mixer, clips, names ...other } = useAnimations(model.animations, model.scene)
-  
-  // 动作间流传切换
-  actions.Walk.play()
-
-  setTimeOut(() => {
-    actions.Run.play()
-    // parameters: action from && time to switch
-    actions.Run.crossFadeFrom(actions.Walk, 1) 
-  }, 5000)
-
-
-  // Leva 控制动作间切换
-  const animationName = useControl({
-    animationName: { options: names }
-  })
-  useEffect(() => {
-    const action = actions[animationName]
-    action.reset().fadeIn(0.5).play()
-
-    return () => {
-      action.fadeOut(0.5)
-    }
-  }, [animationName])
-  
-}
-
-// 提前加载preLoading
-useGLTF.preload('/path-to-model')
-```
