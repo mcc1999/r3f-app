@@ -1,13 +1,48 @@
 import { OrbitControls } from "@react-three/drei"
+import { EffectComposer } from "@react-three/postprocessing"
 import { Perf } from "r3f-perf"
+import Drunk from "@/effects/Drunk"
+import { useControls } from "leva"
+import { BlendFunction } from "postprocessing"
 
 const Experience = () => {
+
+  const dunkProps = useControls({
+    frequency: {
+      value: 2,
+      min: 0,
+      max: 20
+    },
+    amplitude: {
+      value: 0.1,
+      min: 0,
+      max: 1
+    },
+    offset: {
+      value: 0.1,
+      min: 0,
+      max: 10
+    },
+    speed: {
+      value: 0,
+      min: 0,
+      max: 0.1
+    }
+  })
 
   return (
     <>
       <Perf position="top-left" />
 
       <OrbitControls makeDefault />
+
+      <EffectComposer>
+        <Drunk 
+          {...dunkProps}
+          blendFunction={BlendFunction.SCREEN}
+        />
+      </EffectComposer>
+
   
       <directionalLight castShadow position={ [ 1, 2, 3 ] } intensity={ 1.5 } />
       <ambientLight intensity={ 0.5 } />

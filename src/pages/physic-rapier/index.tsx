@@ -2,15 +2,15 @@ import { Canvas } from "@react-three/fiber"
 import Experience from "./Experience"
 import styles from './index.module.scss'
 
-const Macbook = () => {
+const PhysicRapier = () => {
   return (
     <div className={styles.canvasContainer}>
       <Canvas
         camera={{
           fov: 45,
           near: 0.1,
-          far: 2000,
-          position: [ -3, 1.5, 4 ]
+          far: 200,
+          position: [0, 4, 15]
         }}
       >
         <color args={['#ffffff']} attach="background" />
@@ -20,4 +20,4 @@ const Macbook = () => {
   )
 }
 
-export default Macbook
+export default PhysicRapier

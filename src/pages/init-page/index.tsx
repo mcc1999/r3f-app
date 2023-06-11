@@ -2,9 +2,9 @@ import { Canvas } from "@react-three/fiber"
 import Experience from "./Experience"
 import styles from './index.module.scss'
 
-const Text3D = () => {
+const Init = () => {
   return (
-    <div className={styles.text3dContainer}>
+    <div className={styles.canvasContainer}>
       <Canvas
         camera={{
           fov: 45,
@@ -20,4 +20,4 @@ const Text3D = () => {
   )
 }
 
-export default Text3D
+export default Init
