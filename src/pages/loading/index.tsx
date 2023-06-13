@@ -2,8 +2,8 @@ import { Canvas } from "@react-three/fiber"
 import Experience from "./Experience"
 import styles from './index.module.scss'
 import { Suspense, useCallback, useEffect, useState } from "react"
-// import { Loader } from "@react-three/drei"
-import Loader from "@/components/Loader"
+import { Loader } from "@react-three/drei"
+// import Loader from "@/components/Loader"
 
 const Loading = () => {
   const [mount, setMount] = useState<boolean>(false)
