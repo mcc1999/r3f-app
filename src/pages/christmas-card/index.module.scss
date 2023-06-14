@@ -3,22 +3,11 @@
   height: 100vh;
 }
 
-.textScene {
-  position: fixed;
-  left: 0;
-  top: 0;
-  z-index: 10;
-  transition: all 1s;
-  pointer-events: none;
-
-  .sceneItem {
-    width: 100vw;
-    height: 100vh;
-
-    h1 {
-      padding: 100px 50px; 
-      font-size: 50px; 
-      color: #fff;
-    }
-  }
+.textBox {
+  width: 100vw;
+  height: 100vh;
+  line-height: 100vh;
+  text-align: center;
+  font-size: 64px;
+  user-select: none;
 }
