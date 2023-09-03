@@ -1,5 +1,15 @@
 .main {
   width: 100vw;
   height: 100vh;
-  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000000;
+  
+  .navList {
+    display: grid;
+    grid-template-columns: repeat(5, 240px);
+    grid-gap: 32px;
+    justify-content: space-around;
+  }
 }
