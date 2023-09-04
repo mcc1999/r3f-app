@@ -41,6 +41,11 @@ const NavList = [
     minimap: '',
     linkHref: 'text-3d',
   },
+  {
+    title: 'Marbles Game',
+    minimap: '',
+    linkHref: 'marbles-game',
+  },
 ]
 export default function Home() {
   return (
