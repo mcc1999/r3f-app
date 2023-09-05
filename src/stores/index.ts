@@ -1,4 +1,4 @@
-import { create}  from 'zustand'
+import { create }  from 'zustand'
 import CreateMarbleGameSlice, { MarbleGameSlice } from './marbleGameSlice'
 import { subscribeWithSelector } from 'zustand/middleware'
 

@@ -17,7 +17,6 @@ export default function Experience() {
       <Perf position="top-left" />
       
       <color args={['#bdedfc']} attach="background" />
-      <OrbitControls />
 
       <Physics>
         <Lights />

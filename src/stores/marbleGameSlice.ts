@@ -1,5 +1,4 @@
 import { StateCreator } from "zustand";
-import { subscribeWithSelector } from 'zustand/middleware'
 
 export enum GamePhase {
   "READY" = 'ready',
@@ -24,6 +23,7 @@ export interface MarbleGameSlice {
   start: () => void;
   restart: () => void;
   end: () => void;
+  setBlocksCount: (count: number) => void;
 }
 
 const CreateMarbleGameSlice: StateCreator<
@@ -38,6 +38,12 @@ const CreateMarbleGameSlice: StateCreator<
   endTime: 0,
   phase: GamePhase.READY,
 
+  setBlocksCount: (count: number) => {
+    set((state) => {
+      if (count !== state.blocksCount) return {blocksCount: count}
+      return {}
+    })
+  },
   start: () => {
     set((state) => {
       if (state.phase === GamePhase.READY) {

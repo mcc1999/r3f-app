@@ -1,7 +1,3 @@
-import { Canvas } from '@react-three/fiber'
-import { OrbitControls } from '@react-three/drei'
-import Parrot from '@/components/Models/Parrot'
-import { Bird } from '@/components/Models/Bird'
 import styles from './index.module.scss'
 import NavItem from '@/components/NavItem'
 
@@ -45,6 +41,11 @@ const NavList = [
     title: 'Marble Game',
     minimap: '',
     linkHref: 'marble-game',
+  },
+  {
+    title: 'Room In 3D',
+    minimap: '',
+    linkHref: 'room-in-3d',
   },
 ]
 export default function Home() {

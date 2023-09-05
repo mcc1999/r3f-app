@@ -24,6 +24,6 @@
       "@/*": ["src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "tsconfig.json"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "tsconfig.json", "src/pages/room-in-3d/components/shaders/baked/vertex.glsl"],
   "exclude": ["node_modules"]
 }
