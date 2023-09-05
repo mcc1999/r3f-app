@@ -31,7 +31,8 @@
     "react-dom": "18.2.0",
     "sass": "^1.62.1",
     "three": "^0.152.2",
-    "typescript": "5.0.4"
+    "typescript": "5.0.4",
+    "zustand": "^4.4.1"
   },
   "devDependencies": {
     "r3f-perf": "6.6"
