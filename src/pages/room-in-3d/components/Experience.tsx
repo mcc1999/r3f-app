@@ -1,4 +1,4 @@
-import { OrbitControls } from '@react-three/drei'
+import { OrbitControls, PresentationControls } from '@react-three/drei'
 import { useControls } from 'leva'
 import { Perf } from 'r3f-perf'
 import React, { useEffect } from 'react'
@@ -11,7 +11,8 @@ import PcScreen from './gltfjsx/PcScreenModel'
 import TopChair from './gltfjsx/TopChairModel'
 import CoffeeSteam from './gltfjsx/CoffeeSteamModel'
 import BouncingLogo from './BouncingLogo'
-import { EffectComposer } from '@react-three/postprocessing'
+import { Bloom, DepthOfField, EffectComposer, HueSaturation, Noise } from '@react-three/postprocessing'
+import { HalfFloatType } from 'three'
 
 const Experience:React.FC = () => {
   return (
@@ -20,21 +21,22 @@ const Experience:React.FC = () => {
 
       <color args={['#010101']} attach="background" />
 
-      <OrbitControls makeDefault />
 
-      <EffectComposer>
+      <EffectComposer stencilBuffer> 
         
       </EffectComposer>
 
-      <Light />
-      <Leds />
-      <Buttons />
-      <Room />
-      <MacScreen />
-      <PcScreen />
-      <TopChair />
-      <CoffeeSteam />
-      <BouncingLogo />
+      <PresentationControls snap global zoom={0.8} polar={[0, Math.PI / 4]} azimuth={[-Math.PI / 4, Math.PI / 4]}>
+        <Light />
+        <Leds />
+        <Buttons />
+        <Room />
+        <MacScreen />
+        <PcScreen />
+        <TopChair />
+        <CoffeeSteam />
+        <BouncingLogo />
+      </PresentationControls>
     </>
   )
 }

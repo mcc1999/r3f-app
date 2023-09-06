@@ -2,6 +2,7 @@ import React from 'react'
 import styles from './index.module.scss'
 import { Canvas } from '@react-three/fiber'
 import Experience from './components/Experience'
+import { SRGBColorSpace } from 'three'
 
 const RoomIn3D:React.FC = () => {
   return  (
@@ -15,6 +16,7 @@ const RoomIn3D:React.FC = () => {
         gl={{
           alpha: false,
           antialias: true,
+          outputColorSpace: SRGBColorSpace,
         }}
       >
         <Experience />
