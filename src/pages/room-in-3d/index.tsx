@@ -6,7 +6,12 @@ import Experience from './components/Experience'
 const RoomIn3D:React.FC = () => {
   return  (
     <div className={styles.canvasContainer}>
-      <Canvas>
+      <Canvas
+        camera={{
+          position: [0.5, 3.2, -5]
+          // position: [-6, 6, 6]
+        }}
+      >
         <Experience />
       </Canvas>
     </div>

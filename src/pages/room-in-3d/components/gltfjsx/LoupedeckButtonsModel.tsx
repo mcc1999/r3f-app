@@ -4,9 +4,11 @@ Command: npx gltfjsx@6.1.11 loupedeckButtonsModel.glb -t
 */
 
 import * as THREE from 'three'
-import React from 'react'
+import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 import { GLTF } from 'three-stdlib'
+import { useFrame } from '@react-three/fiber'
+import { gsap } from 'gsap'
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -28,51 +30,98 @@ type GLTFResult = GLTF & {
   materials: {}
 }
 
-export default function Model(props: JSX.IntrinsicElements['group']) {
+export default function Model(props: JSX.IntrinsicElements['group']) {  
   const { nodes } = useGLTF('/roomIn3d/loupedeckButtonsModel.glb') as GLTFResult
+  const buttonGroup = useRef<THREE.Group>(null)
+  const time = useRef(0)
+
+  const buttonAnimation = () => {
+    if (!buttonGroup.current) return   
+
+    const colors = ['#af55cf', '#dbd85d', '#e86b24', '#b81b54']
+    const buttons: THREE.Mesh[] = [], outButtons: THREE.Mesh[] = []
+    for (let child of buttonGroup.current.children) {
+      if (Math.random() > 0.5) buttons.push(child as THREE.Mesh)
+      else outButtons.push(child as THREE.Mesh)
+    }
+
+    for(let mesh of outButtons) {      
+      (mesh.material as THREE.Material).opacity = 0
+    }
+    
+    let i = 0
+    for(let mesh of buttons) {
+      (mesh.material as THREE.MeshBasicMaterial).color.set(colors[Math.floor(Math.random() * colors.length)])
+      gsap.to(mesh.material, {
+        delay: i * 0.05,
+        duration: 0.2,
+        opacity: 1,
+        onComplete: () =>
+        {
+          gsap.to(
+            mesh.material,
+            {
+                delay: 3,
+                duration: 0.5,
+                opacity: 0
+            }
+          )
+        }
+      })
+      i++
+    }
+  }
+  useFrame((state, delta) => {
+    const elapsedTime = state.clock.elapsedTime
+    if (elapsedTime - time.current > 5) {
+      time.current = elapsedTime
+      buttonAnimation()
+    }
+  })
+
   return (
-    <group {...props} dispose={null}>
-      <mesh geometry={nodes.screen001.geometry} material={nodes.screen001.material} position={[0.15, 2.46, -4.35]} rotation={[0.29, 0, 0]} scale={[0.17, 0.12, 0.1]}>
-        <meshBasicMaterial color="#ffffff" transparent={true} />
+    <group ref={buttonGroup} {...props} dispose={null} position={[0, 0.01, 0]}>
+      <mesh geometry={nodes.screen001.geometry} position={[0.15, 2.46, -4.35]} rotation={[0.29, 0, 0]} scale={[0.17, 0.12, 0.1]}>
+        <meshBasicMaterial color="#ffffff" transparent={true} opacity={0} />
       </mesh>
-      <mesh geometry={nodes.screen004.geometry} material={nodes.screen004.material} position={[0.15, 2.46, -4.35]} rotation={[0.29, 0, 0]} scale={[0.17, 0.12, 0.1]}>
-        <meshBasicMaterial color="#ffffff" transparent={true} />
+      <mesh geometry={nodes.screen002.geometry} position={[0.15, 2.46, -4.35]} rotation={[0.29, 0, 0]} scale={[0.17, 0.12, 0.1]}>
+        <meshBasicMaterial color="#ffffff" transparent={true} opacity={0} />
       </mesh>
-      <mesh geometry={nodes.screen003.geometry} material={nodes.screen003.material} position={[0.15, 2.46, -4.35]} rotation={[0.29, 0, 0]} scale={[0.17, 0.12, 0.1]}>
-        <meshBasicMaterial color="#ffffff" transparent={true} />
+      <mesh geometry={nodes.screen003.geometry} position={[0.15, 2.46, -4.35]} rotation={[0.29, 0, 0]} scale={[0.17, 0.12, 0.1]}>
+        <meshBasicMaterial color="#ffffff" transparent={true} opacity={0} />
       </mesh>
-      <mesh geometry={nodes.screen002.geometry} material={nodes.screen002.material} position={[0.15, 2.46, -4.35]} rotation={[0.29, 0, 0]} scale={[0.17, 0.12, 0.1]}>
-        <meshBasicMaterial color="#ffffff" transparent={true} />
+      <mesh geometry={nodes.screen004.geometry} position={[0.15, 2.46, -4.35]} rotation={[0.29, 0, 0]} scale={[0.17, 0.12, 0.1]}>
+        <meshBasicMaterial color="#ffffff" transparent={true} opacity={0} />
       </mesh>
-      <mesh geometry={nodes.screen007.geometry} material={nodes.screen007.material} position={[0.15, 2.46, -4.35]} rotation={[0.29, 0, 0]} scale={[0.17, 0.12, 0.1]}>
-        <meshBasicMaterial color="#ffffff" transparent={true} />
+      <mesh geometry={nodes.screen005.geometry} position={[0.15, 2.46, -4.35]} rotation={[0.29, 0, 0]} scale={[0.17, 0.12, 0.1]}>
+        <meshBasicMaterial color="#ffffff" transparent={true} opacity={0} />
       </mesh>
-      <mesh geometry={nodes.screen006.geometry} material={nodes.screen006.material} position={[0.15, 2.46, -4.35]} rotation={[0.29, 0, 0]} scale={[0.17, 0.12, 0.1]}>
-        <meshBasicMaterial color="#ffffff" transparent={true} />
+      <mesh geometry={nodes.screen006.geometry} position={[0.15, 2.46, -4.35]} rotation={[0.29, 0, 0]} scale={[0.17, 0.12, 0.1]}>
+        <meshBasicMaterial color="#ffffff" transparent={true} opacity={0} />
       </mesh>
-      <mesh geometry={nodes.screen005.geometry} material={nodes.screen005.material} position={[0.15, 2.46, -4.35]} rotation={[0.29, 0, 0]} scale={[0.17, 0.12, 0.1]}>
-        <meshBasicMaterial color="#ffffff" transparent={true} />
+      <mesh geometry={nodes.screen007.geometry} position={[0.15, 2.46, -4.35]} rotation={[0.29, 0, 0]} scale={[0.17, 0.12, 0.1]}>
+        <meshBasicMaterial color="#ffffff" transparent={true} opacity={0} />
       </mesh>
-      <mesh geometry={nodes.screen010.geometry} material={nodes.screen010.material} position={[0.15, 2.46, -4.35]} rotation={[0.29, 0, 0]} scale={[0.17, 0.12, 0.1]}>
-        <meshBasicMaterial color="#ffffff" transparent={true} />
+      <mesh geometry={nodes.screen008.geometry} position={[0.15, 2.46, -4.35]} rotation={[0.29, 0, 0]} scale={[0.17, 0.12, 0.1]}>
+        <meshBasicMaterial color="#ffffff" transparent={true} opacity={0} />
       </mesh>
-      <mesh geometry={nodes.screen009.geometry} material={nodes.screen009.material} position={[0.15, 2.46, -4.35]} rotation={[0.29, 0, 0]} scale={[0.17, 0.12, 0.1]}>
-        <meshBasicMaterial color="#ffffff" transparent={true} />
+      <mesh geometry={nodes.screen009.geometry} position={[0.15, 2.46, -4.35]} rotation={[0.29, 0, 0]} scale={[0.17, 0.12, 0.1]}>
+        <meshBasicMaterial color="#ffffff" transparent={true} opacity={0} />
       </mesh>
-      <mesh geometry={nodes.screen008.geometry} material={nodes.screen008.material} position={[0.15, 2.46, -4.35]} rotation={[0.29, 0, 0]} scale={[0.17, 0.12, 0.1]}>
-        <meshBasicMaterial color="#ffffff" transparent={true} />
+      <mesh geometry={nodes.screen010.geometry} position={[0.15, 2.46, -4.35]} rotation={[0.29, 0, 0]} scale={[0.17, 0.12, 0.1]}>
+        <meshBasicMaterial color="#ffffff" transparent={true} opacity={0} />
       </mesh>
-      <mesh geometry={nodes.screen013.geometry} material={nodes.screen013.material} position={[0.15, 2.46, -4.35]} rotation={[0.29, 0, 0]} scale={[0.17, 0.12, 0.1]}>
-        <meshBasicMaterial color="#ffffff" transparent={true} />
+      <mesh geometry={nodes.screen011.geometry} position={[0.15, 2.46, -4.35]} rotation={[0.29, 0, 0]} scale={[0.17, 0.12, 0.1]}>
+        <meshBasicMaterial color="#ffffff" transparent={true} opacity={0} />
       </mesh>
-      <mesh geometry={nodes.screen012.geometry} material={nodes.screen012.material} position={[0.15, 2.46, -4.35]} rotation={[0.29, 0, 0]} scale={[0.17, 0.12, 0.1]}>
-        <meshBasicMaterial color="#ffffff" transparent={true} />
+      <mesh geometry={nodes.screen012.geometry} position={[0.15, 2.46, -4.35]} rotation={[0.29, 0, 0]} scale={[0.17, 0.12, 0.1]}>
+        <meshBasicMaterial color="#ffffff" transparent={true} opacity={0} />
       </mesh>
-      <mesh geometry={nodes.screen011.geometry} material={nodes.screen011.material} position={[0.15, 2.46, -4.35]} rotation={[0.29, 0, 0]} scale={[0.17, 0.12, 0.1]}>
-        <meshBasicMaterial color="#ffffff" transparent={true} />
+      <mesh geometry={nodes.screen013.geometry} position={[0.15, 2.46, -4.35]} rotation={[0.29, 0, 0]} scale={[0.17, 0.12, 0.1]}>
+        <meshBasicMaterial color="#ffffff" transparent={true} opacity={0} />
       </mesh>
-      <mesh geometry={nodes.screen014.geometry} material={nodes.screen014.material} position={[0.15, 2.46, -4.35]} rotation={[0.29, 0, 0]} scale={[0.17, 0.12, 0.1]}>
-        <meshBasicMaterial color="#ffffff" transparent={true} />
+      <mesh geometry={nodes.screen014.geometry} position={[0.15, 2.46, -4.35]} rotation={[0.29, 0, 0]} scale={[0.17, 0.12, 0.1]}>
+        <meshBasicMaterial color="#ffffff" transparent={true} opacity={0} />
       </mesh>
     </group>
   )

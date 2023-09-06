@@ -24,15 +24,15 @@ const Experience:React.FC = () => {
 
       <OrbitControls makeDefault />
 
-      <Light />
-      <Leds />
+      {/* <Light />
+      <Leds /> */}
       <Buttons />
       <Room />
-      <MacScreen />
+      {/* <MacScreen />
       <PcScreen />
       <TopChair />
       <CoffeeSteam />
-      <BouncingLogo />
+      <BouncingLogo /> */}
     </>
   )
 }
