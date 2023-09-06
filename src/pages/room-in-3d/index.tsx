@@ -8,8 +8,13 @@ const RoomIn3D:React.FC = () => {
     <div className={styles.canvasContainer}>
       <Canvas
         camera={{
-          position: [0.5, 3.2, -5]
-          // position: [-6, 6, 6]
+          fov: 35,
+          far: 150,
+          position: [-15, 15, 15],
+        }}
+        gl={{
+          alpha: false,
+          antialias: true,
         }}
       >
         <Experience />

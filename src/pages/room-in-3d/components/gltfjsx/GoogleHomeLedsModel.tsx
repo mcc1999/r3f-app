@@ -26,28 +26,28 @@ export default function Model(props: JSX.IntrinsicElements['group']) {
   const googleHomeLedMaskTexture = useTexture('/roomIn3d/googleHomeLedMask.png')
   return (
     <group {...props} dispose={null}>
-      <mesh geometry={nodes.led2.geometry} material={nodes.led2.material} position={[1.02, 1.12, 1]} rotation={[0.04, 1.57, 0]} scale={0.02}>
+      <mesh geometry={nodes.led2.geometry} position={[1.02, 1.12, 1]} rotation={[0.04, 1.57, 0]} scale={0.02}>
         <meshBasicMaterial
           color={colors[2]}
           transparent={true}
           alphaMap={googleHomeLedMaskTexture}
         />
       </mesh>
-      <mesh geometry={nodes.led3.geometry} material={nodes.led3.material} position={[1.02, 1.11, 1.04]} rotation={[0.12, Math.PI / 2, 0]} scale={0.02}>
+      <mesh geometry={nodes.led3.geometry} position={[1.02, 1.11, 1.04]} rotation={[0.12, Math.PI / 2, 0]} scale={0.02}>
         <meshBasicMaterial
           color={colors[3]}
           transparent={true}
           alphaMap={googleHomeLedMaskTexture}
         />
       </mesh>
-      <mesh geometry={nodes.led1.geometry} material={nodes.led1.material} position={[1.02, 1.12, 0.96]} rotation={[-0.04, -Math.PI / 2, 0]} scale={0.02}>
+      <mesh geometry={nodes.led1.geometry} position={[1.02, 1.12, 0.96]} rotation={[-0.04, -Math.PI / 2, 0]} scale={0.02}>
         <meshBasicMaterial
           color={colors[1]}
           transparent={true}
           alphaMap={googleHomeLedMaskTexture}
         />
       </mesh>
-      <mesh geometry={nodes.led0.geometry} material={nodes.led0.material} position={[1.02, 1.11, 0.92]} rotation={[-0.12, -1.57, 0]} scale={0.02}>
+      <mesh geometry={nodes.led0.geometry} position={[1.02, 1.11, 0.92]} rotation={[-0.12, -1.57, 0]} scale={0.02}>
         <meshBasicMaterial
           color={colors[0]}
           transparent={true}

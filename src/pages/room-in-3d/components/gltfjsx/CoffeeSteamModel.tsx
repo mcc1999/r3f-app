@@ -7,10 +7,7 @@ import * as THREE from 'three'
 import React from 'react'
 import { useGLTF } from '@react-three/drei'
 import { GLTF } from 'three-stdlib'
-// @ts-ignore
-import vertexShader from '../shaders/coffeeSteam/vertex.glsl'
-// @ts-ignore
-import fragmentShader from '../shaders/coffeeSteam/fragment.glsl'
+import CoffeeShaderMaterial from '../shaders/coffeeSteam'
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -21,19 +18,11 @@ type GLTFResult = GLTF & {
 
 export default function Model(props: JSX.IntrinsicElements['group']) {
   const { nodes } = useGLTF('/roomIn3d/coffeeSteamModel.glb') as GLTFResult
+
   return (
     <group {...props} dispose={null}>
-      <mesh geometry={nodes.Plane013.geometry} material={nodes.Plane013.material} position={[-1.4, 2.66, -3.42]} rotation={[-Math.PI / 2, 0, Math.PI / 2]}>
-        <shaderMaterial
-          uniforms={{
-            uTime: { value: 0 },
-            uTimeFrequency: { value: 0.0004 },
-            uUvFrequency: { value: new THREE.Vector2(4, 5) },
-            uColor: { value: new THREE.Color('#d2958a') }
-          }}
-          vertexShader={vertexShader}
-          fragmentShader={fragmentShader}
-        />
+      <mesh geometry={nodes.Plane013.geometry} position={[-1.4, 2.66, -3.42]} rotation={[-Math.PI / 2, 0, Math.PI / 2]}>
+        <CoffeeShaderMaterial />
       </mesh>
     </group>
   )

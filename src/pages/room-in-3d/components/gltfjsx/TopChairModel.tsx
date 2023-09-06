@@ -4,10 +4,11 @@ Command: npx gltfjsx@6.1.11 topChairModel.glb -t
 */
 
 import * as THREE from 'three'
-import React from 'react'
+import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 import { GLTF } from 'three-stdlib'
 import BakedShaderMaterial from '../shaders/baked'
+import { useFrame } from '@react-three/fiber'
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -18,10 +19,17 @@ type GLTFResult = GLTF & {
 
 export default function Model(props: JSX.IntrinsicElements['group']) {
   const { nodes } = useGLTF('/roomIn3d/topChairModel.glb') as GLTFResult
+  const chairGroup = useRef<THREE.Group>(null)
+
+  useFrame((state) => {    
+    if (!chairGroup.current) return
+    chairGroup.current.rotation.y = Math.sin(state.clock.elapsedTime) * 0.5    
+  })
+
   return (
     <group {...props} dispose={null}>
-      <group position={[0.81, 1.3, -1.53]}>
-        <mesh geometry={nodes.Cube318.geometry} material={nodes.Cube318.material} position={[-0.68, 0.12, 0]} rotation={[-Math.PI / 2, 0, -Math.PI / 2]}>
+      <group ref={chairGroup} position={[0.81, 1.3, -1.53]}>
+        <mesh geometry={nodes.Cube318.geometry} position={[-0.68, 0.12, 0]} rotation={[-Math.PI / 2, 0, -Math.PI / 2]}>
           <BakedShaderMaterial />
         </mesh>
       </group>

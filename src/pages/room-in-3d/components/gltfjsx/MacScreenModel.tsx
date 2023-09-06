@@ -21,7 +21,7 @@ export default function Model(props: JSX.IntrinsicElements['group']) {
   
   return (
     <group {...props} dispose={null}>
-      <mesh geometry={nodes.top001.geometry} material={nodes.top001.material} position={[2.22, 2.62, -4.3]} rotation={[1.52, -0.02, 0.3]}>
+      <mesh geometry={nodes.top001.geometry} position={[2.22, 2.62, -4.3]} rotation={[1.52, -0.02, 0.3]}>
         <meshBasicMaterial map={texture} />
       </mesh>
     </group>

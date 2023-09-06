@@ -11,11 +11,9 @@ import PcScreen from './gltfjsx/PcScreenModel'
 import TopChair from './gltfjsx/TopChairModel'
 import CoffeeSteam from './gltfjsx/CoffeeSteamModel'
 import BouncingLogo from './BouncingLogo'
-import Test from './Test'
+import { EffectComposer } from '@react-three/postprocessing'
 
 const Experience:React.FC = () => {
-  const { color } = useControls({ color: '#eeddee', })  
-
   return (
     <>
       <Perf position="top-left" />
@@ -24,15 +22,19 @@ const Experience:React.FC = () => {
 
       <OrbitControls makeDefault />
 
-      {/* <Light />
-      <Leds /> */}
+      <EffectComposer>
+        
+      </EffectComposer>
+
+      <Light />
+      <Leds />
       <Buttons />
       <Room />
-      {/* <MacScreen />
+      <MacScreen />
       <PcScreen />
       <TopChair />
       <CoffeeSteam />
-      <BouncingLogo /> */}
+      <BouncingLogo />
     </>
   )
 }
